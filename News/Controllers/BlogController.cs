@@ -37,15 +37,17 @@ namespace News.Controllers
 
         public ActionResult ArticleSave(string subject, string body)
         {
-            var article = new BlogArticle();
-            article.Subject = subject;
-            article.Body = body;
-            article.DateCreated = DateTime.Now;
-
-            var db = new BlogDatabase();
-            db.BlogArticles.Add(article);
-            db.SaveChanges();
-
+            if (ModelState.IsValid)
+            {
+               var article = new BlogArticle();
+                 article.Subject = model.Subject;
+                article.Body = model.Body;
+                article.DateCreated = DateTime.Now;
+                
+                var db = new BlogDatabase();
+                db.BlogArticles.Add(article);
+                db.SaveChanges();
+                            }
             return Redirect("Index");
         }
 
